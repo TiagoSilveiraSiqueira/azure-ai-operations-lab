@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="banner-title banner-desc">
+  <title id="banner-title">Azure + IA · Operations Lab</title>
+  <desc id="banner-desc">Laboratório com dados sintéticos. Triagem de incidentes e revisão humana. Banner azul escuro com detalhes em teal e uma nuvem conectada.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081421" />
+      <stop offset="0.6" stop-color="#0c2134" />
+      <stop offset="1" stop-color="#103443" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#56dfcf" />
+      <stop offset="1" stop-color="#6eafff" />
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#83b5ca" opacity="0.12" />
+    </pattern>
+  </defs>
+  <rect width="1200" height="300" rx="22" fill="url(#background)" />
+  <rect x="780" y="0" width="420" height="300" rx="22" fill="url(#grid)" />
+  <path d="M808 0 L728 300" stroke="#b7e5ed" stroke-width="1" opacity="0.05" />
+  <circle cx="1057" cy="150" r="135" fill="#52d7c8" opacity="0.025" />
+  <circle cx="1057" cy="150" r="108" fill="none" stroke="#80c5d9" stroke-width="1" opacity="0.12" />
+  <circle cx="1057" cy="150" r="74" fill="none" stroke="#80c5d9" stroke-width="1" opacity="0.08" />
+
+  <rect x="66" y="43" width="5" height="22" rx="2.5" fill="#56dfcf" />
+  <text x="85" y="59" fill="#8eb7c7" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2">LABORATÓRIO · DADOS SINTÉTICOS</text>
+  <text x="64" y="124" fill="#f2f8ff" font-family="Segoe UI, Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="-0.6">Azure + IA · Operations Lab</text>
+  <text x="67" y="167" fill="#bad0e2" font-family="Segoe UI, Arial, sans-serif" font-size="23">Triagem de incidentes e revisão humana</text>
+  <rect x="67" y="197" width="354" height="3" rx="1.5" fill="url(#accent)" />
+  <text x="67" y="247" fill="#8eb7c7" font-family="Segoe UI, Arial, sans-serif" font-size="18">Python · Demo · Modelo local</text>
+
+  <g fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M965 184 H1096 C1114 184 1129 171 1129 153 C1129 135 1115 121 1097 119 C1091 94 1069 78 1043 80 C1019 82 999 98 992 121 C976 111 955 115 944 129 C933 142 933 159 945 172 C950 180 957 184 965 184 Z" stroke-width="2.5" opacity="0.85" />
+    <path d="M964 184 V215 H932 V241 M1037 184 V236 M1101 184 V215 H1135 V241" stroke-width="1.5" opacity="0.6" />
+    <path d="M1038 116 L1005 145 L1038 169 L1071 145 Z M1005 145 H1071 M1038 116 V169" stroke-width="1.3" opacity="0.8" />
+    <circle cx="932" cy="247" r="5" stroke-width="1.5" />
+    <circle cx="1037" cy="242" r="5" stroke-width="1.5" />
+    <circle cx="1135" cy="247" r="5" stroke-width="1.5" />
+  </g>
+  <g fill="#64daca">
+    <circle cx="1038" cy="116" r="3.7" />
+    <circle cx="1005" cy="145" r="3.7" />
+    <circle cx="1038" cy="169" r="3.7" />
+    <circle cx="1071" cy="145" r="3.7" />
+  </g>
+  <rect x="0.5" y="0.5" width="1199" height="299" rx="21.5" fill="none" stroke="#9fc9dd" stroke-opacity="0.1" />
+</svg>

@@ -1,0 +1,36 @@
+{
+  "incidents": [
+    {
+      "id": "INC-001",
+      "service": "Portal Aurora (fictício)",
+      "reported_symptom": "Páginas demoram para abrir.",
+      "window": "Janela sintética de cinco minutos; horário não informado.",
+      "evidence": [
+        {"id": "E-101", "metric": "latency_p95_ms", "value": 820, "target_max": 400},
+        {"id": "E-102", "metric": "cpu_percent", "value": 88},
+        {"id": "E-103", "observation": "Uma versão precedeu o relato; sem horário preciso."}
+      ]
+    },
+    {
+      "id": "INC-002",
+      "service": "Fila Boreal (fictícia)",
+      "reported_symptom": "Processamento intermitente e fila crescente.",
+      "window": "Janela sintética de dez minutos; horário não informado.",
+      "evidence": [
+        {"id": "E-201", "metric": "memory_percent", "value": 96, "target_max": 85},
+        {"id": "E-202", "metric": "queue_length", "value": 120},
+        {"id": "E-203", "observation": "Não há dado sobre limite ou crescimento normal da fila."}
+      ]
+    },
+    {
+      "id": "INC-003",
+      "service": "Painel Cobalto (fictício)",
+      "reported_symptom": "Não é possível confirmar a saúde do serviço pelos dados disponíveis.",
+      "window": "Janela sintética de quinze minutos sem amostras.",
+      "evidence": [
+        {"id": "E-301", "metric": "telemetry_available", "value": false},
+        {"id": "E-302", "observation": "Disponibilidade do serviço não foi medida separadamente."}
+      ]
+    }
+  ]
+}

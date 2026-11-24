@@ -1,0 +1,29 @@
+name: Testes do laboratorio
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.13']
+    steps:
+      - name: Obter arquivos do projeto
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Verificar compilacao
+        run: python -m compileall -q agent.py test_agent.py
+      - name: Executar testes locais
+        run: python -m unittest -v
+      - name: Conferir demonstracao sem modelo
+        run: python agent.py --mode demo --input incidents.example.json --incident INC-001
