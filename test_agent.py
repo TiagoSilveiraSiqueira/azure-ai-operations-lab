@@ -186,6 +186,23 @@ class InputTests(unittest.TestCase):
         example = Path(__file__).parent / "incidents.example.json"
         self.assertEqual(agent.load_incidents(example), agent.INCIDENTS)
 
+    def test_public_cases_validate_without_metrics_and_preserve_evidence_references(self):
+        example = Path(__file__).parent / "incidents.public.example.json"
+        incidents = agent.load_incidents(example)
+        self.assertEqual(len(incidents), 2)
+        with patch("agent.request_ollama") as model:
+            for incident in incidents.values():
+                with self.subTest(incident=incident["id"]):
+                    self.assertTrue(incident["evidence"])
+                    for evidence in incident["evidence"]:
+                        self.assertEqual(set(evidence), {"id", "observation"})
+                    result = agent.triage(incident)
+                    self.assertEqual(result["assessment"]["category"], "indeterminado")
+                    self.assertEqual(set(result["assessment"]["evidence_ids"]),
+                                     {evidence["id"] for evidence in incident["evidence"]})
+                    self.assertFalse(result["uses_llm"])
+        model.assert_not_called()
+
     def test_local_input_loads_and_uses_custom_threshold(self):
         self.document["incidents"][0]["evidence"][0]["target_max"] = 900
         incidents = agent.load_incidents(self.write_document())

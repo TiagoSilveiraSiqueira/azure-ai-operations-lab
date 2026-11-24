@@ -27,3 +27,5 @@ jobs:
         run: python -m unittest -v
       - name: Conferir demonstracao sem modelo
         run: python agent.py --mode demo --input incidents.example.json --incident INC-001
+      - name: Conferir caso publico sem inventar metricas
+        run: python agent.py --mode demo --input incidents.public.example.json --incident INC-101

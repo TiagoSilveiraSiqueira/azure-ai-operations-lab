@@ -2,7 +2,7 @@
 
 # Azure + IA: laboratório de operações
 
-Um laboratório de triagem de incidentes para quem está começando em IA aplicada a TI. Ele organiza **dados sintéticos**, referencia evidências e sugere próximos passos para revisão humana. Você também pode fornecer um arquivo local no mesmo formato para reutilizar o fluxo.
+Um laboratório de triagem de incidentes para quem está começando em IA aplicada a TI. Ele reúne exemplos sintéticos, seleções de postmortems públicos e um fluxo para entrada local. O programa referencia evidências e sugere próximos passos para revisão humana.
 
 **Autor:** Tiago Silveira Siqueira · Supervisor de TI · IA aplicada e cloud
 
@@ -53,6 +53,15 @@ O arquivo [incidents.example.json](incidents.example.json) contém os mesmos tr�
 python agent.py --input incidents.example.json --list
 python agent.py --input incidents.example.json --incident INC-002
 ```
+
+O arquivo [incidents.public.example.json](incidents.public.example.json) contém duas seleções de fatos confirmados em postmortems públicos da Cloudflare (02/07/2019) e do GitHub (21/10/2018). São resumos de análises posteriores, sem métricas inventadas e sem atribuição de experiência ao autor do laboratório. Leia as fontes, as referências por ID e o exercício em [casos públicos](docs/casos-publicos.md).
+
+```text
+python agent.py --mode demo --input incidents.public.example.json --incident INC-101
+python agent.py --mode demo --input incidents.public.example.json --incident INC-102
+```
+
+Essas entradas usam somente observações. O modo demo retorna `indeterminado` porque suas regras dependem de métricas estruturadas; isso não invalida as causas explicadas pelos postmortems. O exercício ensina a reconhecer esse limite, sem preencher lacunas com números inventados.
 
 Para experimentar alterações, crie a pasta `local/` e copie o exemplo para `local/incidents.json`. A pasta é ignorada pelo Git. Edite somente a cópia e execute:
 
@@ -149,7 +158,7 @@ Um modelo pequeno pode produzir respostas inválidas ou demorar além do limite 
 
 ## Relação com Azure: arquitetura conceitual
 
-Em um estudo futuro, métricas do Azure Monitor e consultas do Log Analytics poderiam fornecer evidências previamente selecionadas a um fluxo de triagem. Este laboratório representa somente a etapa de análise com entradas fictícias.
+Em um estudo futuro, métricas do Azure Monitor e consultas do Log Analytics poderiam fornecer evidências previamente selecionadas a um fluxo de triagem. Este laboratório representa somente a etapa de análise com entradas de estudo. Os casos públicos da Cloudflare e do GitHub não são implantações deste projeto no Azure.
 
 ```text
 Azure Monitor / Log Analytics (conceito)
@@ -165,15 +174,17 @@ Revisão humana e registro de decisão
 
 ## O que os testes verificam
 
-[test_agent.py](test_agent.py) usa `unittest` e simula o modelo local. Os testes cobrem classificação dos cenários, esquema e limites de entrada, erros sem exposição de valores, fluxo `--input`, IDs inválidos, categorias sem suporte, formato da resposta, fallback, endereço loopback, bloqueio de proxies/redirecionamentos e limite de resposta.
+[test_agent.py](test_agent.py) usa `unittest` e simula o modelo local. Os testes cobrem classificação dos cenários, esquema e limites de entrada, erros sem exposição de valores, fluxo `--input`, arquivos de casos públicos sem métricas inventadas, IDs inválidos, categorias sem suporte, formato da resposta, fallback, endereço loopback, bloqueio de proxies/redirecionamentos e limite de resposta.
 
 Os testes não chamam Ollama ou Azure. O comportamento com um modelo realmente instalado precisa ser experimentado na sua máquina.
 
-A [automação de testes](.github/workflows/tests.yml) está configurada para Python 3.10 e 3.13, com permissões de leitura. Ela verifica compilação, testes e uma execução demo com o arquivo fictício. Não usa LLM, credenciais ou serviços cloud.
+A [automação de testes](.github/workflows/tests.yml) está configurada para Python 3.10 e 3.13, com permissões de leitura. Ela verifica compilação, testes e execuções demo com os arquivos sintético e de casos públicos. Não usa LLM, credenciais ou serviços cloud.
 
 ## Contribua
 
 Sugira um novo cenário sintético com sintoma, evidências identificadas e resultado esperado. Uma melhoria útil mostra qual decisão ficou mais clara e como foi verificada. Não envie arquivos, logs ou configurações de um ambiente real.
+
+Para um estudo de caso público, identifique a fonte original, separe fatos de hipóteses e use somente evidências que você consiga confirmar. O formato atual permite usar observações sem converter relatos em métricas.
 
 Veja os passos de validação em [CONTRIBUTING.md](CONTRIBUTING.md).
 

@@ -1,0 +1,31 @@
+{
+  "incidents": [
+    {
+      "id": "INC-101",
+      "service": "Cloudflare — caso público de 02/07/2019",
+      "reported_symptom": "Segundo o postmortem, a falha afetou proxy, CDN e WAF e clientes receberam erros HTTP 502.",
+      "window": "02/07/2019, UTC: implantação às 13:42; tráfego e CPU nos níveis esperados às 14:09, conforme análise posterior.",
+      "evidence": [
+        {"id": "E-401", "observation": "O postmortem da Cloudflare relata a implantação de uma alteração de regra WAF às 13:42 UTC de 02/07/2019."},
+        {"id": "E-402", "observation": "A análise posterior atribui o esgotamento de CPU dos processos HTTP/HTTPS ao backtracking excessivo de uma expressão regular na regra WAF."},
+        {"id": "E-403", "observation": "Clientes receberam páginas de erro HTTP 502; o artigo relaciona isso à impossibilidade de alcançar os processos que atendiam HTTP/HTTPS."},
+        {"id": "E-404", "observation": "Às 14:07 UTC, a equipe desativou globalmente o componente WAF. Essa é uma ação histórica relatada, não uma instrução deste laboratório."},
+        {"id": "E-405", "observation": "Às 14:09 UTC, tráfego e CPU voltaram aos níveis esperados mundialmente, segundo o artigo; a restauração da funcionalidade WAF foi tratada depois."},
+        {"id": "E-406", "observation": "Entre os fatores contribuintes, a análise cita testes sem identificação de consumo excessivo de CPU e implantação global sem rollout em etapas para aquela mudança."}
+      ]
+    },
+    {
+      "id": "INC-102",
+      "service": "GitHub — caso público de 21/10/2018",
+      "reported_symptom": "Segundo o postmortem, houve degradação parcial, informações desatualizadas ou inconsistentes e interrupção de processamento de webhooks e Pages.",
+      "window": "21/10/2018 22:52 a 22/10/2018 23:03 UTC; o artigo relata 24 horas e 11 minutos de degradação, sem afirmar indisponibilidade total.",
+      "evidence": [
+        {"id": "E-501", "observation": "Às 22:52 UTC de 21/10/2018, uma manutenção de equipamento óptico ocasionou perda de conectividade entre o hub de rede e o data center principal na costa leste dos EUA."},
+        {"id": "E-502", "observation": "A conectividade foi restabelecida em 43 segundos, mas o artigo relata uma cadeia de eventos com 24 horas e 11 minutos de degradação de serviço."},
+        {"id": "E-503", "observation": "Durante a partição de rede, o Orchestrator promoveu primários na costa oeste. Escritas não replicadas e divergentes entre os locais impediram uma reversão imediata segura."},
+        {"id": "E-504", "observation": "A equipe priorizou a integridade dos dados e pausou entrega de webhooks e builds de GitHub Pages. Essas são decisões históricas relatadas, não ações prescritas pelo laboratório."},
+        {"id": "E-505", "observation": "Às 23:03 UTC de 22/10/2018, o artigo registra processamento dos webhooks e builds de Pages pendentes, confirmação da operação dos sistemas e atualização do status para verde."}
+      ]
+    }
+  ]
+}

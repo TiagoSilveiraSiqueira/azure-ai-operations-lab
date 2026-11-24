@@ -1,4 +1,4 @@
-"""Laboratório de triagem: dados sintéticos, demo por regras e LLM local opcional."""
+"""Laboratório de triagem: dados de estudo, entrada local, regras e LLM local opcional."""
 
 import argparse
 import json
@@ -213,7 +213,7 @@ def supported_categories(incident):
 
 
 def validate_assessment(assessment, incident):
-    """Valida esquema, categoria e referências às evidências sintéticas."""
+    """Valida esquema, categoria e referências às evidências da entrada."""
     if not isinstance(assessment, dict) or set(assessment) != ASSESSMENT_FIELDS:
         raise ValueError("Esquema de avaliação inválido.")
     category = assessment["category"]
