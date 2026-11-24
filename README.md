@@ -2,6 +2,8 @@
 
 # Azure + IA: laboratório de operações
 
+[![Testes automáticos](https://github.com/TiagoSilveiraSiqueira/azure-ai-operations-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/TiagoSilveiraSiqueira/azure-ai-operations-lab/actions/workflows/tests.yml)
+
 Um laboratório de triagem de incidentes para quem está começando em IA aplicada a TI. Ele reúne exemplos sintéticos, seleções de postmortems públicos e um fluxo para entrada local. O programa referencia evidências e sugere próximos passos para revisão humana.
 
 **Autor:** Tiago Silveira Siqueira · Supervisor de TI · IA aplicada e cloud
