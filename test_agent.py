@@ -162,6 +162,20 @@ class LocalModelTests(unittest.TestCase):
             agent.request_ollama(agent.INCIDENTS["INC-001"], "nome com espaços")
         factory.assert_not_called()
 
+    def test_cloud_model_names_are_blocked_before_request_and_use_explicit_fallback(self):
+        incident = agent.INCIDENTS["INC-001"]
+        for model in ("gpt-oss:120b-cloud", "gemini-3-flash-preview:cloud", "modelo:Cloud"):
+            with self.subTest(model=model), patch("agent.build_local_opener") as factory:
+                with self.assertRaises(agent.CloudModelNotAllowed):
+                    agent.request_ollama(incident, model)
+                result = agent.triage(incident, mode="ollama", model=model)
+                factory.assert_not_called()
+                self.assertEqual(result["mode_requested"], "ollama")
+                self.assertEqual(result["mode_used"], "demo")
+                self.assertFalse(result["uses_llm"])
+                self.assertIn("cloud bloqueado", result["fallback"])
+                self.assertIn("sem enviar o incidente", result["fallback"])
+
     def test_response_size_limit_is_enforced(self):
         response = MagicMock()
         response.read.return_value = b"x" * (agent.MAX_RESPONSE_BYTES + 1)

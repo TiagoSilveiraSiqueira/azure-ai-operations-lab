@@ -80,6 +80,10 @@ class InputError(ValueError):
     """Erro de entrada cuja mensagem não contém valores do arquivo fornecido."""
 
 
+class CloudModelNotAllowed(ValueError):
+    """O modo local não aceita nomes usualmente marcados para execução cloud."""
+
+
 def _require_fields(value, fields):
     if not isinstance(value, dict) or set(value) != set(fields):
         raise InputError("Estrutura inválida ou campos não permitidos na entrada.")
@@ -270,6 +274,8 @@ def demo_assessment(incident):
 def request_ollama(incident, model):
     if not isinstance(model, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:/-]{0,99}", model):
         raise ValueError("Nome de modelo inválido.")
+    if re.search(r"(^|[:/._-])cloud($|[:/._-])", model.lower()):
+        raise CloudModelNotAllowed("O modo local não aceita modelo marcado como cloud.")
     schema = {
         "type": "object",
         "properties": {
@@ -315,6 +321,9 @@ def triage(incident, mode="demo", model=DEFAULT_MODEL):
         try:
             assessment = validate_assessment(request_ollama(incident, model), incident)
             mode_used = "ollama"
+        except CloudModelNotAllowed:
+            fallback = "Modelo marcado como cloud bloqueado; usada a demonstração por regras, sem enviar o incidente."
+            assessment = demo_assessment(incident)
         except (OSError, ValueError, TypeError, UnicodeError, HTTPException):
             fallback = "Modelo local indisponível ou resposta inválida; usada a demonstração por regras."
             assessment = demo_assessment(incident)

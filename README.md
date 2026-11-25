@@ -156,6 +156,8 @@ Em Linux/macOS, use `python3` na segunda linha. O download do modelo é uma etap
 
 A única chamada do programa é para `http://127.0.0.1:11434/api/generate`, sem autenticação, com o incidente selecionado da coleção embutida ou do arquivo escolhido. Não há opção para serviço remoto. Proxies herdados e redirecionamentos são desativados para manter essa requisição no endereço local. Não exponha o serviço local na rede para usar este exercício.
 
+O modo pressupõe um **serviço e um modelo realmente locais**. Ollama também pode oferecer modelos cloud pelo mesmo endpoint; o endereço loopback sozinho não comprova onde a inferência acontece. Nomes usualmente marcados como cloud, como sufixo `-cloud` ou tag `:cloud`, são bloqueados antes de qualquer requisição, com fallback para a demonstração e sem envio do incidente. Esse bloqueio por nome não verifica aliases ou a configuração do serviço. Escolha um modelo instalado localmente; o programa não inspeciona nem modifica o Ollama da máquina.
+
 Um modelo pequeno pode produzir respostas inválidas ou demorar além do limite de 15 segundos, principalmente no primeiro carregamento. Nesse caso, confira `mode_used` e `fallback`; uma saída demo não comprova execução do modelo.
 
 ## Relação com Azure: arquitetura conceitual
@@ -176,7 +178,7 @@ Revisão humana e registro de decisão
 
 ## O que os testes verificam
 
-[test_agent.py](test_agent.py) usa `unittest` e simula o modelo local. Os testes cobrem classificação dos cenários, esquema e limites de entrada, erros sem exposição de valores, fluxo `--input`, arquivos de casos públicos sem métricas inventadas, IDs inválidos, categorias sem suporte, formato da resposta, fallback, endereço loopback, bloqueio de proxies/redirecionamentos e limite de resposta.
+[test_agent.py](test_agent.py) usa `unittest` e simula o modelo local. Os testes cobrem classificação dos cenários, esquema e limites de entrada, erros sem exposição de valores, fluxo `--input`, arquivos de casos públicos sem métricas inventadas, IDs inválidos, categorias sem suporte, formato da resposta, fallback, endereço loopback, bloqueio de nomes cloud antes da requisição, bloqueio de proxies/redirecionamentos e limite de resposta.
 
 Os testes não chamam Ollama ou Azure. O comportamento com um modelo realmente instalado precisa ser experimentado na sua máquina.
 
